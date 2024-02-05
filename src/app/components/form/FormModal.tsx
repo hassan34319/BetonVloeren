@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
+import Modal from 'react-modal';
 
 import { useMultiStepForm } from "../../hooks/useMultiStepForm";
 import FirstScreen from "../../components/form/FirstScreen";
@@ -14,66 +15,64 @@ import { ArrowLeft, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import OpenButton from "./OpenButton";
 import { client } from "../../utils/client";
-type FormProps = {
-  open : boolean
-  setOpen : (open : boolean) => void
+import { useModal } from "../../hooks/ModalContext";
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(51,51,51,0.6)",
+    zIndex: "9001",
+  },
 };
 
-const FormModal = ({open, setOpen}: FormProps) => {
+Modal.setAppElement("body");
+
+const initialInputs = {
+  useCase: "",
+  naam: "",
+  gender: "",
+  email: "",
+  mobiel: "",
+  postcode: "",
+  hlasnummer: "",
+  buildingType: "",
+  gewenste: "0 tot 3 manden",
+  oppervlakte: "",
+  type: "",
+  toepassing: "",
+  vloerverwarming: "geen",
+  story: "",
+}
+
+const initialErrors = {
+  useCase: "",
+  naam: "",
+  gender: "",
+  email: "",
+  mobiel: "",
+  postcode: "",
+  hlasnummer: "",
+  buildingType: "",
+  gewenste: "",
+  oppervlakte: "",
+  type: "",
+  toepassing: "",
+  vloerverwarming: "",
+  story: "",
+}
+
+const FormModal = () => {
   const [loading,setLoading] = useState(false)
-  const searchParams = useSearchParams();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [cid, setCid] = useState("");
-  const [inputs, setInputs] = useState({
-    useCase: "",
-    naam: "",
-    gender: "",
-    email: "",
-    mobiel: "",
-    postcode: "",
-    hlasnummer: "",
-    buildingType: "",
-    gewenste: "0 tot 3 manden",
-    oppervlakte: "",
-    type: "",
-    toepassing: "",
-    vloerverwarming: "geen",
-    story: "",
-  });
-  const [errors, setErrors] = useState({
-    useCase: "",
-    naam: "",
-    gender: "",
-    email: "",
-    mobiel: "",
-    postcode: "",
-    hlasnummer: "",
-    buildingType: "",
-    gewenste: "",
-    oppervlakte: "",
-    type: "",
-    toepassing: "",
-    vloerverwarming: "",
-    story: "",
-  })
+  const [inputs, setInputs] = useState(initialInputs);
+  const [errors, setErrors] = useState(initialErrors)
+
+  const searchParams = useSearchParams();
+  const { isOpen, setIsOpen, closeModal } = useModal();
+
 
   const handleInputChange = (event: { target: { name: any; value: any } }) => {
-    setErrors({
-      useCase: "",
-    naam: "",
-    gender: "",
-    email: "",
-    mobiel: "",
-    postcode: "",
-    hlasnummer: "",
-    buildingType: "",
-    gewenste: "",
-    oppervlakte: "",
-    type: "",
-    toepassing: "",
-    vloerverwarming: "",
-    story: "",
-    })
+    setErrors(initialErrors)
     const { name, value } = event.target;
     setInputs((prevInputs) => ({
       ...prevInputs,
@@ -89,35 +88,16 @@ const FormModal = ({open, setOpen}: FormProps) => {
     if (widget && widget === "open") {
       newOpen = true;
     }
-    setOpen(newOpen);
+    setIsOpen(newOpen);
   }, [searchParams]);
 
   useEffect(() => {
-    if (!open) {
+    if (!isOpen) {
       setCurrentStepIndex(0);
-      setInputs({
-        useCase: "",
-        naam: "",
-        gender: "",
-        email: "",
-        mobiel: "",
-        postcode: "",
-        hlasnummer: "",
-        buildingType: "",
-        gewenste: "0 tot 3 manden",
-        oppervlakte: "",
-        type: "",
-        toepassing: "",
-        vloerverwarming: "geen",
-        story: "",
-      });
+      setInputs(initialInputs);
     }
-  }, [open]);
+  }, [isOpen]);
 
-  if (!open)
-    return (
-      <></>
-    );
 
   const { step, goToStep, isFirstStep, isLastStep, back, next, isThirdStep } =
     useMultiStepForm(
@@ -186,7 +166,6 @@ const FormModal = ({open, setOpen}: FormProps) => {
       // Handle error
     }
   };
-  console.log(errors)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -292,7 +271,7 @@ const FormModal = ({open, setOpen}: FormProps) => {
     }
 
     if (isLastStep) {
-      setOpen(false);
+      closeModal()
       return;
     }
 
@@ -311,6 +290,16 @@ const FormModal = ({open, setOpen}: FormProps) => {
   };
 
   return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      shouldReturnFocusAfterClose={false}
+      contentLabel="Newsletter Modal"
+      className="w-full max-w-[970px] relative flex items-center justify-center px-2 h-full mx-auto my-auto overflow-y-auto pt-28 pb-5 md:py-0"
+      overlayClassName="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center"
+      id="newsletter-popup-form"
+    >
     <div className="w-[95%] md:w-[80%] max-w-[450px] h-max my-5 rounded-xl shadow-lg bg-[#fdfdff]">
       <form
         onSubmit={handleSubmit}
@@ -334,7 +323,7 @@ const FormModal = ({open, setOpen}: FormProps) => {
             size={30}
             strokeWidth={2.6}
             color="#7E7D80"
-            onClick={() => setOpen(false)}
+            onClick={closeModal}
           />
         </button>
         {step}
@@ -352,6 +341,7 @@ const FormModal = ({open, setOpen}: FormProps) => {
         </div>
       </form>
     </div>
+    </Modal>
   );
 };
 

@@ -1,9 +1,17 @@
+import FormModal from "./components/form/FormModal";
+import { ModalProvider } from "./hooks/ModalContext";
 import "./css/main.css";
+import "./globals.css";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <ModalProvider>
+        <body>
+          {children}
+          <FormModal />
+        </body>
+      </ModalProvider>
     </html>
   );
 }

@@ -1,6 +1,7 @@
-import Link from "next/link";
+"use client"
+
 import React, { useState } from "react";
-import FormModal from "../components/form/FormModal";
+import Link from "next/link";
 import { urlFor } from "../utils/UrlImage";
 import {
   faceBookIcon,
@@ -10,6 +11,7 @@ import {
   tiktokIcon,
   twitterIcon,
 } from "./SVG";
+import { useModal } from "../hooks/ModalContext";
 
 export default function Footer({
   type,
@@ -28,12 +30,9 @@ export default function Footer({
     id: variant.slug.current,
     title: variant.mainHeading,
   }));
-  const [open,setOpen] =useState(false)
+  const { openModal } = useModal()
   return (
     <>
-          <div className="w-full min-h-screen flex items-center justify-center">
-        <FormModal open={open} setOpen={setOpen} />
-      </div>
     <div className="footer">
       <div className="auto__container">
         <div className="footer__inner">
@@ -60,7 +59,7 @@ export default function Footer({
                 </a>
                 <h6>Op afspraak te bezoeken!</h6>
                 <button
-                onClick={()=>setOpen(true)}
+                onClick={openModal}
                   type="button"
                   className={`button primary bg-[#${buttonColor}]`}
                 >

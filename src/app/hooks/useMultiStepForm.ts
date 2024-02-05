@@ -1,9 +1,8 @@
 "use client"
-import { ReactElement, useState } from "react";
 
-export const useMultiStepForm = (steps: ReactElement[], currentStepIndex : number, setCurrentStepIndex : (num: any)=>void) => {
+import type { ReactElement } from "react";
 
-
+export const useMultiStepForm = (steps: ReactElement[], currentStepIndex: number, setCurrentStepIndex: (num: any) => void) => {
   const next = () => {
     setCurrentStepIndex((prevCurrentStepIndex : any) => {
       if (prevCurrentStepIndex === steps?.length - 1)

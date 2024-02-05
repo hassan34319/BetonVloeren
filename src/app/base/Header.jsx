@@ -4,7 +4,7 @@ import { mailSvg, phoneSvg } from "./SVG";
 import Nav from "./nav/Nav";
 import Link from "next/link";
 import { urlFor } from "../utils/UrlImage";
-import FormModal from "../components/form/FormModal";
+import { useModal } from "../hooks/ModalContext";
 
 export default function Header({
   type,
@@ -20,8 +20,10 @@ export default function Header({
 }) {
   const [menu, setMenu] = useState(false);
   const [logo, setLogo] = useState(false);
-  const [scrollWidth, setScrollWidth] = useState(0);
-  const [open,setOpen] =useState(false)
+  const [scrollWidth, setScrollWidth] = useState(0);  
+  
+  const { openModal } = useModal()
+
   useEffect(() => {
     setScrollWidth(
       (window.scrollY * 100) / (document.body.scrollHeight - window.innerHeight)
@@ -58,9 +60,6 @@ export default function Header({
   };
   return (
     <>
-      <div className="w-full min-h-screen flex items-center justify-center">
-        <FormModal open={open} setOpen={setOpen} />
-      </div>
       <header className={`header ` + (type ? "second " : "")} id="header">
         <div className="headerTop">
           <div className="auto__container">
@@ -128,6 +127,7 @@ export default function Header({
               ) : (
                 <button
                   type="button"
+                  onClick={openModal}
                   className={`button primary bg-[#${buttonColor}]`}
                 >
                   {buttonText}

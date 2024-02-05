@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import FormModal from "../../../../../components/form/FormModal";
 import { phoneSvg } from "./../../../../../base/SVG";
+import { useModal } from "../../../../../hooks/ModalContext";
 
 export default function ButtonRow({
   type,
@@ -10,11 +9,11 @@ export default function ButtonRow({
   buttonColor,
   link,
 }) {
-  const [open, setOpen] = useState(false);
+  const { openModal } = useModal();
   return (
     <>
       <div className="w-full min-h-screen flex items-center justify-center">
-        <FormModal open={open} setOpen={setOpen} />
+        {/* <FormModal open={open} setOpen={setOpen} /> */}
       </div>
       {type === "type1" && (
         <div className="button__row">
@@ -23,7 +22,7 @@ export default function ButtonRow({
             {phone}
           </a>
           <button
-            onClick={() => setOpen(true)}
+            onClick={openModal}
             type="button"
             className={`button primary bg-[#${buttonColor}] big`}
           >
@@ -37,7 +36,7 @@ export default function ButtonRow({
             Meer over Beton cire
           </a>
           <button
-            onClick={() => setOpen(true)}
+            onClick={openModal}
             type="button"
             className={`button primary bg-[#${buttonColor}]`}
           >

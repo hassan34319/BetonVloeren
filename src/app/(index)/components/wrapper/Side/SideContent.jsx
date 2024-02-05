@@ -3,7 +3,7 @@ import { phoneSvg } from "../../../../base/SVG";
 import Colors from "./components/Colors";
 import Link from "next/link";
 import { urlFor } from "../../../../utils/UrlImage";
-import FormModal from "../../../../components/form/FormModal";
+import { useModal } from "../../../../hooks/ModalContext";
 
 export default function SideContent({
   setColorData,
@@ -30,11 +30,11 @@ export default function SideContent({
       }
     }
   };
-  const [open, setOpen] = useState(false);
+  
+  const { openModal } = useModal();
+
   return (
     <>
-        <FormModal open={open} setOpen={setOpen} />
-
       <div className="side" id="side">
         <div className="side__box">
           <div className="side__box-image">
@@ -48,7 +48,7 @@ export default function SideContent({
           Download onze brochure
         </button> */}
           <button
-            onClick={() => setOpen(true)}
+            onClick={openModal}
             type="button"
             className={`button primary bg-[#${buttonColor}] big`}
           >
