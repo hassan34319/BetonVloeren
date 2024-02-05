@@ -1,34 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
+import { urlFor } from "../../utils/UrlImage";
 import { caretDown, chevronRight } from "../SVG";
 
-const NavList = [
-  {
-    id: "1",
-    image: "images/nav/1.jpg",
-    title: "Beton cire",
-    desc: (
-      <>
-        Beton cire is een prachtige techniek om uw woning of bedrijfsruimte een
-        stoer en robuist uiterlijk te geven.
-      </>
-    ),
-  },
-  {
-    id: "2",
-    image: "images/nav/2.jpg",
-    title: "Gietvloer beton",
-    desc: (
-      <>
-        Beton cire is een prachtige techniek om uw woning of bedrijfsruimte een
-        stoer en robuist uiterlijk te geven.
-      </>
-    ),
-    tag: "meest verkocht",
-    topSell: true,
-  },
-];
 
-export default function NavDropdown({ title }) {
+
+export default function NavDropdown({ variations, title }) {
+  const NavList = variations.map(variant => ({
+    id: variant.slug.current,
+    image: variant.navbarImage,
+    title: variant.navbarTitle,
+    desc: variant.navbarText,
+    tag: variant.tag, // Assuming tag exists in some variants
+    topSell: variant.topSell // Assuming topSell exists in some variants
+  }));
+  
   const wrapper = useRef(null);
   const [dropdown, setDropdown] = useState(false);
   useEffect(() => {
@@ -64,13 +49,13 @@ export default function NavDropdown({ title }) {
 const DropdownItem = ({ itemData }) => {
   return (
     <a
-      href="#"
+      href={itemData.id}
       className={
         "nav__inner-dropdown-item " + (itemData.topSell ? "topSell" : "")
       }
     >
       <div className="nav__inner-dropdown-item-image">
-        <img src={itemData.image} alt="" />
+        <img src={urlFor(itemData.image).url()} alt="" />
       </div>
       <div className="nav__inner-dropdown-item-content">
         <div className="nav__inner-dropdown-item-content-title">

@@ -9,6 +9,7 @@ import ui from "./sanity/lib/ui";
 import contact from "./sanity/lib/contact";
 import variant from "./sanity/lib/variant";
 import gallery from "./sanity/lib/gallery";
+import Form from "./sanity/lib/Form";
 
 
 export default defineConfig({
@@ -18,6 +19,6 @@ export default defineConfig({
   dataset,
   plugins: [deskTool()],
   schema: {
-    types: [home,ui,contact,variant,gallery],
+    types: [home,ui,contact,variant,gallery,Form],
   },
 });

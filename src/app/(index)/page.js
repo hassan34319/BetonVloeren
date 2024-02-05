@@ -6,12 +6,11 @@ export const revalidate = 60;
 
 async function index() {
   const homeData = await client.fetch('*[_type == "home"][0]');
-  console.log(homeData)
   const uiData = await client.fetch('*[_type == "uiComponents"][0]');
-  console.log(uiData)
-
+  const variations = await client.fetch('*[_type == "variations"]');
+  console.log(variations, "Variations")
   return (
-    <Main homeData={homeData} uiData={uiData}/>
+    <Main homeData={homeData} uiData={uiData} variations={variations}/>
   )
 }
 

@@ -46,7 +46,8 @@ export default {
       {
         name: 'homePageDescription1',
         title: 'Home Page Description 1',
-        type: 'text',
+        type: 'array',
+        of: [{ type: 'block' }],
       },
       {
         name: 'homePageImage1',
@@ -61,7 +62,8 @@ export default {
       {
         name: 'homePageDescription2',
         title: 'Home Page Description 2',
-        type: 'text',
+        type: 'array',
+        of: [{ type: 'block' }],
       },
       {
         name: 'homePageImages',
@@ -72,7 +74,8 @@ export default {
       {
         name: 'homePageDescription3',
         title: 'Home Page Description 3',
-        type: 'text',
+        type: 'array',
+        of: [{ type: 'block' }],
       },
       {
         name: 'subHeading2',
@@ -80,19 +83,21 @@ export default {
         type: 'string',
       },
       {
-        name: 'feature1',
-        title: 'Feature 1',
+        name: 'tag',
+        title: 'Tag',
         type: 'string',
       },
       {
-        name: 'feature2',
-        title: 'Feature 2',
-        type: 'string',
+        name: 'features',
+        title: 'Features',
+        type: 'array',
+        of : [{type : 'string'}]
       },
       {
         name: 'homePageDescription4',
         title: 'Home Page Description 4',
-        type: 'text',
+        type: 'array',
+        of: [{ type: 'block' }],
       },
       {
         name: 'innerPageHeading',
@@ -112,7 +117,8 @@ export default {
       {
         name: 'innerPageDescription1',
         title: 'Inner Page Description 1',
-        type: 'text',
+        type: 'array',
+        of: [{ type: 'block' }],
       },
       {
         name: 'innerPageImage1',

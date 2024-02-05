@@ -2,20 +2,23 @@ import React from "react";
 import ButtonRow from "./ButtonRow";
 import BlockContent from "@sanity/block-content-to-react";
 import Link from "next/link";
+import { urlFor } from "../../../../../utils/UrlImage";
 
-const typeList = [
-  { id: "1", title: "Beton cire", image: "images/type/1.png" },
-  { id: "1", title: "Betonlook", image: "images/type/2.png" },
-  { id: "1", title: "Woonbeton", image: "images/type/3.png" },
-  { id: "1", title: "Gietvloer beton", image: "images/type/4.png" },
-];
+
 
 export default function Type({
   categoryHeading,
   categoryIntro,
   shortVariantsIntro,
   variantsIntroHeading,
+  variations
 }) {
+  const typeList = variations.map(type => ({
+    id: type.slug.current,
+    title: type.mainHeading,
+    image: type.homePageSmallImage
+  }))
+  
   const serializers = {
     types: {
       block: (props) => <p className="extra">{props.children}</p>,
@@ -25,7 +28,7 @@ export default function Type({
   };
   return (
     <div className="content__type">
-      <h2>{categoryHeading}</h2>
+      <h2 className="categoryHeading">{categoryHeading}</h2>
       <p className="extra">
         <BlockContent
           className=""
@@ -55,8 +58,8 @@ const TypeItem = ({ itemData }) => {
   return (
     <div className="content__type-item">
       <div className="content__type-item-image">
-        <img src={itemData.image} alt="" />
-        <a href="#">
+        <img src={urlFor(itemData.image).url()} alt="" />
+        <a href={`/${itemData.id}`}>
           <h6>{itemData.title}</h6>
         </a>
       </div>

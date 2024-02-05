@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import FormModal from "../components/form/FormModal";
 import { urlFor } from "../utils/UrlImage";
 import {
   faceBookIcon,
@@ -21,8 +22,18 @@ export default function Footer({
   buttonText,
   phone,
   domain,
+  variations,
 }) {
+  const FooterLinks = variations.map((variant) => ({
+    id: variant.slug.current,
+    title: variant.mainHeading,
+  }));
+  const [open,setOpen] =useState(false)
   return (
+    <>
+          <div className="w-full min-h-screen flex items-center justify-center">
+        <FormModal open={open} setOpen={setOpen} />
+      </div>
     <div className="footer">
       <div className="auto__container">
         <div className="footer__inner">
@@ -44,8 +55,12 @@ export default function Footer({
                     {phoneSvg} {phone}
                   </a>
                 </div>
+                <a href={`/contact`} className="footerTop__right-col-link">
+                  Contact
+                </a>
                 <h6>Op afspraak te bezoeken!</h6>
                 <button
+                onClick={()=>setOpen(true)}
                   type="button"
                   className={`button primary bg-[#${buttonColor}]`}
                 >
@@ -56,56 +71,53 @@ export default function Footer({
                 <div className="footerTop__right-col">
                   <h5 className="sm">Betonvloeren</h5>
                   <div className="footerTop__right-col-links">
-                    <a href="#" className="footerTop__right-col-link">
-                      Woonbeton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Beton cire
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Gietvloer beton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Microcement
-                    </a>
+                    {FooterLinks.map((link) => {
+                      return (
+                        <Link
+                          href={`/${link.id}`}
+                          className="footerTop__right-col-link"
+                        >
+                          {link.title}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="footerTop__right-col">
                   <h5 className="sm">Betonvloeren afwerking</h5>
                   <div className="footerTop__right-col-links">
-                    <a href="#" className="footerTop__right-col-link">
-                      Woonbeton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Beton cire
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Gietvloer beton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Microcement
-                    </a>
+                    {FooterLinks.map((link) => {
+                      return (
+                        <Link
+                          href={`/${link.id}`}
+                          className="footerTop__right-col-link"
+                        >
+                          {link.title}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="footerTop__right-col">
                   <h5 className="sm">Betonvloeren prijs</h5>
                   <div className="footerTop__right-col-links">
-                    <a href="#" className="footerTop__right-col-link">
-                      Woonbeton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Beton cire
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Gietvloer beton
-                    </a>
-                    <a href="#" className="footerTop__right-col-link">
-                      Microcement
-                    </a>
+                    {FooterLinks.map((link) => {
+                      return (
+                        <Link
+                          href={`/${link.id}`}
+                          className="footerTop__right-col-link"
+                        >
+                          {link.title}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="footerTop__right-col">
-                  <h5 className="sm">Keurmerken</h5>
+                  <Link href="/photo">
+                    {" "}
+                    <h5 className="sm">Portfolio</h5>
+                  </Link>
                   <div className="footerTop__right-col-images">
                     <div className="footerTop__right-col-image">
                       <img src="images/noa.png" alt="" />
@@ -129,7 +141,7 @@ export default function Footer({
             <div className="footerBot__inner">
               <div className="footerBot__info">
                 <Link href={"/"} className="footerBot__logo">
-                <img src={urlFor(logo_).url()} alt="" />
+                  <img src={urlFor(logo_).url()} alt="" />
                 </Link>
                 <p>
                   Bekijk onze <a href="#"> privacy statement</a> en{" "}
@@ -175,5 +187,6 @@ export default function Footer({
         </div>
       </div>
     </div>
+    </>
   );
 }

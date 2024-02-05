@@ -10,7 +10,7 @@ export default function Intro({ setColorData, setColorModal,mainHeading,bgImage,
       </div>
       <div className="auto__container">
         <div className="intro__inner">
-          <h1>
+          <h1 id="mainHeading">
           {mainHeading}
           </h1>
           <div className="intro__inner-scroll">

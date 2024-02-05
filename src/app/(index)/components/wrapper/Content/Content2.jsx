@@ -21,7 +21,9 @@ export default function Content2({
   domain,
   advantagesBlocks,
   advantagesHeading,
-  advantagesIntroText
+  advantagesIntroText,
+  variations,
+  keyword
 }) {
   const serializers = {
     types: {
@@ -41,7 +43,7 @@ export default function Content2({
       />
       <div className="content__about">
         <h3 className="sm">
-          Wat zijn betonvloeren en waarom zijn ze populair?
+          Wat zijn {keyword} en waarom zijn ze populair?
         </h3>
         <div className="content__about-inner">
           <BlockContent
@@ -56,8 +58,9 @@ export default function Content2({
         categoryIntro={categoryIntro}
         variantsIntroHeading={variantsIntroHeading}
         shortVariantsIntro={shortVariantsIntro}
+        variations={variations}
       />
-      <Detail buttonText={buttonText} buttonColor={buttonColor} />
+      <Detail buttonText={buttonText} buttonColor={buttonColor} variations={variations} />
       <Adv phone={phone} buttonText={buttonText} buttonColor={buttonColor} advantagesBlocks={advantagesBlocks} advantagesHeading={advantagesHeading} advantagesIntroText={advantagesIntroText} />
       <Choose domain={domain} />
     </div>

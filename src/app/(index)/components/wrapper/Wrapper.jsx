@@ -21,15 +21,38 @@ export default function Wrapper({
   domain,
   advantagesBlocks,
   advantagesHeading,
-  advantagesIntroText
+  advantagesIntroText,
+  variations,
+  keyword,
+  mainHeading
 }) {
+
+  const hardcodedObjects = [
+    { title: mainHeading, slug: "mainHeading" },
+    { title: categoryHeading, slug: "categoryHeading" }
+  ];
+
+
+  // Extract titles and slugs from variants
+  const variantObjects = variations.map(variant => ({
+    title: variant.mainHeading,
+    slug: variant.slug.current 
+  }));
+
+  // Combine hardcoded objects and variant objects
+  let combinedList = [...hardcodedObjects, ...variantObjects];
+
+  // Add advantagesHeading object as the last item
+  const advantagesObject = { title: advantagesHeading, slug: "advantagesHeading" };
+  combinedList.push(advantagesObject);
+
   return (
     <>
       <section className="wrap">
         <div className="auto__container">
           <div className="wrap__inner">
             <Content introText={introText} buttons={buttons} />
-            <Side />
+            <Side faqList ={combinedList}/>
           </div>
         </div>
       </section>
@@ -52,6 +75,8 @@ export default function Wrapper({
               advantagesBlocks={advantagesBlocks}
               advantagesHeading={advantagesHeading} 
               advantagesIntroText={advantagesIntroText}
+              variations={variations}
+              keyword={keyword}
             />
             <SideContent
               setColorData={setColorData}

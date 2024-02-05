@@ -15,7 +15,7 @@ import Difference from ".././components/Difference";
 import { getColors } from "../../api/api";
 import home from "../../../../sanity/lib/home";
 
-export default function Main({homeData, uiData}) {
+export default function Main({homeData, uiData,variations}) {
   const [cookie, setCookie] = useState(false);
   const [leave, setLeave] = useState(false);
   const [colorModal, setColorModal] = useState(false);
@@ -39,7 +39,7 @@ export default function Main({homeData, uiData}) {
   console.log(colorModul);
   return (
     <>
-      <Header logo_={homeData.logo} keyword={uiData.keyword} email={uiData.email}  buttonColor={uiData.buttonColor} buttonText={uiData.buttonText}  phone={uiData.contactNumber} />
+      <Header variations={variations} logo_={homeData.logo} keyword={uiData.keyword} email={uiData.email}  buttonColor={uiData.buttonColor} buttonText={uiData.buttonText}  phone={uiData.contactNumber} />
       <main>
         <Intro setColorData={setColorData} setColorModal={setColorModal} mainHeading={homeData.mainHeading} bgImage={homeData.bgImage} keyword={uiData.keyword} />
         <InfoBar keyword={uiData.keyword} />
@@ -51,12 +51,15 @@ export default function Main({homeData, uiData}) {
         advantagesBlocks={homeData.advantagesBlocks}
         advantagesHeading={homeData.advantageHeading}
         advantagesIntroText={homeData.advantageIntro}
+        variations = {variations}
+        keyword={uiData.keyword}
+        mainHeading={homeData.mainHeading}
         />
         <Interested domain={homeData.domainName} />
         <Review />
         <Difference />
       </main>
-      <Footer domain={homeData.domainName}  logo_={homeData.logo} keyword={uiData.keyword} email={uiData.email}  buttonColor={uiData.buttonColor} buttonText={uiData.buttonText}  phone={uiData.contactNumber} />
+      <Footer variations={variations} domain={homeData.domainName}  logo_={homeData.logo} keyword={uiData.keyword} email={uiData.email}  buttonColor={uiData.buttonColor} buttonText={uiData.buttonText}  phone={uiData.contactNumber} />
       <AnimatePresence>
         {cookie && <Cookie setCookie={setCookie} />}
       </AnimatePresence>

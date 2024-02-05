@@ -15,7 +15,7 @@ export default function Adv({
   return (
     <div className="content__adv">
       <div className="content__adv-title">
-        <h2>{advantagesHeading}</h2>
+        <h2 className="advantagesHeading">{advantagesHeading}</h2>
         <img src="images/icons/tick.png" alt="" />
       </div>
       <p className="extra">{advantagesIntroText}</p>

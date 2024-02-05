@@ -7,9 +7,9 @@ export default async function Index() {
   const homeData = await client.fetch('*[_type == "home"][0]');
   const uiData = await client.fetch('*[_type == "uiComponents"][0]');
   const contactData = await client.fetch('*[_type == "contact"][0]');
-  console.log("COntact", contactData)
+  const variations = await client.fetch('*[_type == "variations"]');
 
   return (
-    <ContactMain homeData={homeData} uiData={uiData} contactData={contactData}/>
+    <ContactMain homeData={homeData} uiData={uiData} contactData={contactData} variations={variations}/>
   );
 }

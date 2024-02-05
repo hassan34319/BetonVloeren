@@ -8,7 +8,7 @@ import ContactIntro from "./ContactIntro";
 import ContactWrapper from "./ContactWrapper";
 import ColorModal from "../base/Modals/ColorModal";
 
-export default function ContactMain({ homeData, uiData, contactData }) {
+export default function ContactMain({ homeData, uiData, contactData,variations }) {
   const [colorModal, setColorModal] = useState(false);
   const [colorData, setColorData] = useState(null);
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function ContactMain({ homeData, uiData, contactData }) {
         buttonColor={uiData.buttonColor}
         buttonText={uiData.buttonText}
         phone={uiData.contactNumber}
+        variations={variations}
       />
       <main>
         <div className="contact">
@@ -63,6 +64,7 @@ export default function ContactMain({ homeData, uiData, contactData }) {
         buttonColor={uiData.buttonColor}
         buttonText={uiData.buttonText}
         phone={uiData.contactNumber}
+        variations={variations}
       />
       <AnimatePresence>
         {colorModal && (
